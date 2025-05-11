@@ -6,9 +6,37 @@ import { ProjectsView } from "./sections/ProjectsView";
 import { TeamsView } from "./sections/TeamsView";
 import { ChatsView } from "./sections/ChatsView";
 import { ApplicationsView } from "./sections/ApplicationsView";
+import { StartScreen } from "./StartScreen";
+import { LoginScreen } from "./LoginScreen";
+import { RegisterScreen } from "./RegisterScreen";
+import { CreateProjectScreen } from "./CreateProjectScreen";
+
+// Типы экранов
+const SCREENS = {
+  START: "start",
+  LOGIN: "login",
+  REGISTER: "register",
+  CREATE_PROJECT: "createProject",
+  DASHBOARD: "dashboard",
+} as const;
+type ScreenType = keyof typeof SCREENS;
 
 export const Screen = (): JSX.Element => {
   const [activeView, setActiveView] = React.useState("dashboard");
+  const [currentScreen, setCurrentScreen] = React.useState<ScreenType>("START");
+
+  const handleStartSelect = (action: "login" | "register" | "createProject") => {
+    if (action === "login") setCurrentScreen("LOGIN");
+    else if (action === "register") setCurrentScreen("REGISTER");
+    else if (action === "createProject") setCurrentScreen("CREATE_PROJECT");
+  };
+
+  // Обработчики возврата и перехода
+  const handleBackToStart = () => setCurrentScreen("START");
+  const handleGoToRegister = () => setCurrentScreen("REGISTER");
+  const handleGoToLogin = () => setCurrentScreen("LOGIN");
+  const handleProjectSuccess = () => alert("Проект отправлен! (здесь будет модалка)");
+  const handleLoginSuccess = () => setCurrentScreen("DASHBOARD");
 
   const renderView = () => {
     switch (activeView) {
@@ -24,6 +52,20 @@ export const Screen = (): JSX.Element => {
         return <FrameByAnima />;
     }
   };
+
+  // Рендер по текущему экрану
+  if (currentScreen === "START") {
+    return <StartScreen onSelect={handleStartSelect} />;
+  }
+  if (currentScreen === "LOGIN") {
+    return <LoginScreen onBack={handleBackToStart} onRegister={handleGoToRegister} onLoginSuccess={handleLoginSuccess} />;
+  }
+  if (currentScreen === "REGISTER") {
+    return <RegisterScreen onBack={handleBackToStart} onLogin={handleGoToLogin} />;
+  }
+  if (currentScreen === "CREATE_PROJECT") {
+    return <CreateProjectScreen onBack={handleBackToStart} onSuccess={handleProjectSuccess} />;
+  }
 
   return (
     <div className="flex h-screen w-full bg-main-colorsbackground-alt overflow-hidden">
