@@ -43,32 +43,32 @@ export const RegisterScreen: React.FC<RegisterScreenProps> = ({ onBack, onLogin 
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#F3F5F8]">
-      <div className="w-full max-w-xl bg-white rounded-2xl p-10 shadow flex flex-col gap-6" style={{ minWidth: 420 }}>
+    <div className="min-h-screen flex items-center justify-center bg-[#F3F5F8] px-4 sm:px-6 lg:px-8">
+      <div className="w-full max-w-xl bg-white rounded-2xl p-4 sm:p-6 md:p-8 lg:p-10 shadow flex flex-col gap-4 sm:gap-6">
         <button onClick={onBack} className="mb-2 w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100 transition self-start">
           <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7" stroke="#222" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
         </button>
-        <h2 className="text-2xl font-semibold mb-2">Регистрация</h2>
-        <div className="bg-[#F8F9FB] rounded-xl p-8 flex flex-col gap-4 border border-[#ECECEC]">
+        <h2 className="text-xl sm:text-2xl font-semibold mb-2">Регистрация</h2>
+        <div className="bg-[#F8F9FB] rounded-xl p-4 sm:p-6 md:p-8 flex flex-col gap-4 border border-[#ECECEC]">
           <div className="flex gap-2 mb-2">
             <button
-              className={`px-4 py-1 rounded-full border text-sm font-medium transition ${role === "executor" ? "bg-[#F3F7FE] border-[#5B7FC7] text-[#3771C8]" : "bg-white border-[#ECECEC] text-[#222]"}`}
+              className={`px-3 sm:px-4 py-1 rounded-full border text-xs sm:text-sm font-medium transition ${role === "executor" ? "bg-[#F3F7FE] border-[#5B7FC7] text-[#3771C8]" : "bg-white border-[#ECECEC] text-[#222]"}`}
               onClick={() => setRole("executor")}
             >
               Исполнитель
             </button>
             <button
-              className={`px-4 py-1 rounded-full border text-sm font-medium transition ${role === "customer" ? "bg-[#F3F7FE] border-[#5B7FC7] text-[#3771C8]" : "bg-white border-[#ECECEC] text-[#222]"}`}
+              className={`px-3 sm:px-4 py-1 rounded-full border text-xs sm:text-sm font-medium transition ${role === "customer" ? "bg-[#F3F7FE] border-[#5B7FC7] text-[#3771C8]" : "bg-white border-[#ECECEC] text-[#222]"}`}
               onClick={() => setRole("customer")}
             >
               Заказчик
             </button>
           </div>
-          <input type="text" placeholder="ФИО" className="border rounded-lg px-4 py-3 bg-white text-base outline-none" value={name} onChange={e => setName(e.target.value)} />
+          <input type="text" placeholder="ФИО" className="border rounded-lg px-3 sm:px-4 py-2 sm:py-3 bg-white text-sm sm:text-base outline-none" value={name} onChange={e => setName(e.target.value)} />
           {role === "executor" ? (
             <div className="relative">
               <select
-                className="border rounded-lg px-4 py-3 bg-white text-base outline-none w-full appearance-none"
+                className="border rounded-lg px-3 sm:px-4 py-2 sm:py-3 bg-white text-sm sm:text-base outline-none w-full appearance-none"
                 value={category}
                 onChange={e => setCategory(e.target.value)}
               >
@@ -82,15 +82,15 @@ export const RegisterScreen: React.FC<RegisterScreenProps> = ({ onBack, onLogin 
               </span>
             </div>
           ) : (
-            <input type="text" placeholder="Название компании" className="border rounded-lg px-4 py-3 bg-white text-base outline-none" value={company} onChange={e => setCompany(e.target.value)} />
+            <input type="text" placeholder="Название компании" className="border rounded-lg px-3 sm:px-4 py-2 sm:py-3 bg-white text-sm sm:text-base outline-none" value={company} onChange={e => setCompany(e.target.value)} />
           )}
-          <input type="email" placeholder="Почта" className="border rounded-lg px-4 py-3 bg-white text-base outline-none" value={email} onChange={e => setEmail(e.target.value)} />
-          <input type="password" placeholder="Пароль" className="border rounded-lg px-4 py-3 bg-white text-base outline-none" value={password} onChange={e => setPassword(e.target.value)} />
-          {error && <div className="text-red-500 text-sm text-center">{error}</div>}
-          <div className="text-center text-sm text-[#222]">Уже есть аккаунт? <button onClick={onLogin} className="text-[#3771C8] hover:underline">Авторизация</button></div>
+          <input type="email" placeholder="Почта" className="border rounded-lg px-3 sm:px-4 py-2 sm:py-3 bg-white text-sm sm:text-base outline-none" value={email} onChange={e => setEmail(e.target.value)} />
+          <input type="password" placeholder="Пароль" className="border rounded-lg px-3 sm:px-4 py-2 sm:py-3 bg-white text-sm sm:text-base outline-none" value={password} onChange={e => setPassword(e.target.value)} />
+          {error && <div className="text-red-500 text-xs sm:text-sm text-center">{error}</div>}
+          <div className="text-center text-xs sm:text-sm text-[#222]">Уже есть аккаунт? <button onClick={onLogin} className="text-[#3771C8] hover:underline">Авторизация</button></div>
         </div>
         <button
-          className="w-full mt-4 bg-[#5B7FC7] hover:bg-[#4070C4] text-white rounded-full py-3 text-lg font-semibold transition disabled:opacity-60"
+          className="w-full mt-4 bg-[#5B7FC7] hover:bg-[#4070C4] text-white rounded-full py-2 sm:py-3 text-base sm:text-lg font-semibold transition disabled:opacity-60"
           onClick={handleRegister}
           disabled={loading}
         >

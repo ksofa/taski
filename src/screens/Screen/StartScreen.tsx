@@ -34,27 +34,31 @@ const options = [
 
 export const StartScreen: React.FC<StartScreenProps> = ({ onSelect }) => {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#5B7FC7]">
-      <div className="w-full max-w-4xl bg-[#F3F5F8] rounded-xl p-0 flex flex-col" style={{ minHeight: 600 }}>
-        <div className="px-12 pt-8 pb-0">
-          <h2 className="text-xl font-medium text-[#222] mb-8">Выберите способ входа</h2>
+    <div className="min-h-screen flex items-center justify-center bg-[#5B7FC7] px-0 sm:px-4 md:px-6 lg:px-8">
+      <div className="w-full sm:max-w-4xl bg-[#F3F5F8] rounded-none sm:rounded-xl p-0 flex flex-col" style={{ minHeight: "100vh" }}>
+        <div className="px-2 sm:px-8 md:px-12 pt-3 sm:pt-8 pb-0">
+          <h2 className="text-base sm:text-xl font-medium text-[#222] mb-3 sm:mb-8">Выберите способ входа</h2>
         </div>
-        <div className="flex-1 flex flex-col items-center justify-center">
-          <div className="w-full max-w-md flex flex-col gap-4">
+        <div className="flex-1 flex flex-col items-center justify-center p-1 sm:p-6">
+          <div className="w-full max-w-full sm:max-w-md flex flex-col gap-2 sm:gap-4">
             {options.map((opt, idx) => (
               <button
                 key={opt.key}
                 onClick={() => onSelect(opt.key as any)}
-                className={`flex items-center w-full bg-white rounded-lg px-6 py-4 shadow-sm border transition hover:bg-[#F3F5F8] focus:outline-none ${idx === 0 ? 'border-[#B6D0F7] bg-[#F3F7FE]' : 'border-transparent'}`}
-                style={{ minHeight: 72 }}
+                className={`flex items-center w-full bg-white rounded-none sm:rounded-lg px-2 sm:px-6 py-4 sm:py-4 shadow-sm border transition hover:bg-[#F3F5F8] focus:outline-none ${idx === 0 ? 'border-[#B6D0F7] bg-[#F3F7FE]' : 'border-transparent'}`}
+                style={{ minHeight: "64px" }}
               >
-                <span className="mr-4 flex-shrink-0">{opt.icon}</span>
+                <span className="mr-2 sm:mr-4 flex-shrink-0">
+                  <svg width="24" height="24" fill="none" viewBox="0 0 32 32" className="w-6 h-6 sm:w-8 sm:h-8">
+                    {opt.icon.props.children}
+                  </svg>
+                </span>
                 <span className="flex flex-col text-left">
-                  <span className="font-semibold text-base text-[#222]">{opt.title}</span>
-                  <span className="text-xs text-[#A5A5A7] mt-0.5">{opt.subtitle}</span>
+                  <span className="font-semibold text-sm sm:text-base text-[#222]">{opt.title}</span>
+                  <span className="text-xs sm:text-xs text-[#A5A5A7] mt-0.5">{opt.subtitle}</span>
                 </span>
                 <span className="ml-auto flex-shrink-0">
-                  <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6" stroke="#3771C8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                  <svg width="20" height="20" fill="none" viewBox="0 0 24 24" className="w-5 h-5 sm:w-6 sm:h-6"><path d="M9 6l6 6-6 6" stroke="#3771C8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
                 </span>
               </button>
             ))}

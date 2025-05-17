@@ -26,30 +26,31 @@ export const TeamsView = () => {
   ];
 
   return (
-    <div className="p-8">
-      <h1 className="text-2xl font-semibold mb-6">Команды</h1>
-      
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div className="p-4 sm:p-6 md:p-8">
+      <h1 className="text-xl sm:text-2xl font-semibold mb-4 sm:mb-6">Команды</h1>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
         {teams.map((team) => (
-          <Card key={team.id}>
-            <CardContent className="p-6">
-              <h3 className="font-semibold text-lg mb-4">{team.name}</h3>
-              <p className="text-gray-600 mb-4">Проект: {team.project}</p>
-              
-              <div className="space-y-4">
-                <h4 className="font-medium text-sm text-gray-500">Участники команды:</h4>
-                {team.members.map((member, index) => (
-                  <div key={index} className="flex items-center gap-3">
-                    <Avatar>
-                      <AvatarImage src={`https://i.pravatar.cc/40?img=${index}`} />
-                      <AvatarFallback>{member.name.split(' ')[0][0]}</AvatarFallback>
-                    </Avatar>
-                    <div>
-                      <p className="font-medium">{member.name}</p>
-                      <p className="text-sm text-gray-500">{member.role}</p>
+          <Card key={team.id} className="bg-white">
+            <CardContent className="p-4 sm:p-6">
+              <div className="flex flex-col gap-4">
+                <div>
+                  <h3 className="text-[16px] sm:text-[18px] font-medium text-[#333539] mb-1">{team.name}</h3>
+                  <p className="text-[13px] sm:text-[14px] text-[#666769]">{team.project}</p>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {team.members.map((member, idx) => (
+                    <div key={idx} className="flex items-center gap-2 bg-[#F8F9FB] rounded-lg px-2 sm:px-3 py-1.5 sm:py-2">
+                      <Avatar className="w-6 h-6 sm:w-8 sm:h-8">
+                        <AvatarImage src={`https://avatar.vercel.sh/${member.name}`} />
+                        <AvatarFallback>{member.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
+                      </Avatar>
+                      <div className="flex flex-col">
+                        <span className="text-[12px] sm:text-[13px] font-medium text-[#333539]">{member.name}</span>
+                        <span className="text-[11px] sm:text-[12px] text-[#666769]">{member.role}</span>
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
             </CardContent>
           </Card>

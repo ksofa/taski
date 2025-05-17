@@ -2,7 +2,7 @@ import { ChevronDownIcon } from "lucide-react";
 import React from "react";
 import { Button } from "../../../../components/ui/button";
 
-export const HeaderByAnima = (): JSX.Element => {
+export const HeaderByAnima = ({ onProfileClick }: { onProfileClick?: () => void }): JSX.Element => {
   // Current date and time data
   const dateInfo = {
     date: "Сегодня 21 февраля",
@@ -121,6 +121,7 @@ export const HeaderByAnima = (): JSX.Element => {
         <Button
           variant="outline"
           className="h-12 px-4 rounded-full border-[#dededf] flex items-center gap-2"
+          onClick={onProfileClick}
         >
           <img className="w-6 h-6" alt="Person" src="/person.svg" />
           <div className="flex items-center gap-1">

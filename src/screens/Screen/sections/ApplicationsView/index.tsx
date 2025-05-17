@@ -12,17 +12,23 @@ import { CreateApplicationModal } from "./CreateApplicationModal";
 import { useCollection } from "react-firebase-hooks/firestore";
 import { collection, query, where } from "firebase/firestore";
 import { db } from "../../../../firebase";
+import { useAuth } from "../../../../hooks/useAuth";
 
 export const ApplicationsView = () => {
+  const { user, loading: authLoading } = useAuth();
+  const userId = user?.uid;
   const [showModal, setShowModal] = useState(false);
-  // TODO: получить userId и projectId из контекста/props/выбора
-  const userId = "test-user-id";
+  // TODO: получить projectId из контекста/props/выбора
   const projectId = "test-project-id";
 
   // Получаем заявки из Firestore
-  const q = query(collection(db, "applications")); // Можно добавить where("userId", "==", userId) для фильтрации
+  const q = userId ? query(collection(db, "applications"), where("userId", "==", userId)) : query(collection(db, "applications"));
   const [snapshot, loading, error] = useCollection(q);
   const applications = snapshot?.docs.map(doc => ({ id: doc.id, ...doc.data() })) || [];
+
+  if (authLoading) {
+    return <div className="flex items-center justify-center h-full text-gray-400 text-xl">Загрузка...</div>;
+  }
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -100,7 +106,7 @@ export const ApplicationsView = () => {
           </Card>
         ))}
       </div>
-      {showModal && (
+      {showModal && userId && (
         <CreateApplicationModal
           projectId={projectId}
           userId={userId}

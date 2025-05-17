@@ -10,6 +10,7 @@ import { StartScreen } from "./StartScreen";
 import { LoginScreen } from "./LoginScreen";
 import { RegisterScreen } from "./RegisterScreen";
 import { CreateProjectScreen } from "./CreateProjectScreen";
+import { ProfileView } from "./sections/ProfileView";
 
 // Типы экранов
 const SCREENS = {
@@ -24,6 +25,7 @@ type ScreenType = keyof typeof SCREENS;
 export const Screen = (): JSX.Element => {
   const [activeView, setActiveView] = React.useState("dashboard");
   const [currentScreen, setCurrentScreen] = React.useState<ScreenType>("START");
+  const [showProfile, setShowProfile] = React.useState(false);
 
   const handleStartSelect = (action: "login" | "register" | "createProject") => {
     if (action === "login") setCurrentScreen("LOGIN");
@@ -39,6 +41,7 @@ export const Screen = (): JSX.Element => {
   const handleLoginSuccess = () => setCurrentScreen("DASHBOARD");
 
   const renderView = () => {
+    if (showProfile) return <ProfileView />;
     switch (activeView) {
       case "projects":
         return <ProjectsView />;
@@ -71,7 +74,7 @@ export const Screen = (): JSX.Element => {
     <div className="flex h-screen w-full bg-main-colorsbackground-alt overflow-hidden">
       <LeftMenuByAnima onViewChange={setActiveView} activeView={activeView} />
       <div className="flex flex-col flex-1 overflow-hidden">
-        <HeaderByAnima />
+        <HeaderByAnima onProfileClick={() => setShowProfile(true)} />
         <main className="flex-1 overflow-auto">
           {renderView()}
         </main>
